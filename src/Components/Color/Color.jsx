@@ -1,6 +1,8 @@
 import "./Color.css";
 
 export default function Color({ color }) {
+  console.log("Find Issues 1");
+
   return (
     <div
       className="color-card"
