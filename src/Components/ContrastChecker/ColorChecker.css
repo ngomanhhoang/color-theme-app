@@ -1,0 +1,15 @@
+.bg-green {
+    display: inline-block;
+    background-color: green;
+    color: #000000;
+}
+
+.bg-yellow {
+    background-color: orange;
+    color: #000000;
+}
+
+.bg-red {
+    background-color: red;
+    color: #000000;
+}

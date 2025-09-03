@@ -27,7 +27,7 @@ export default function ColorForm({
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     if (mode === "edit") {
       onUpdate(formData);
     } else {
