@@ -4,9 +4,12 @@ import "./App.css";
 import { useState } from "react";
 import { uid } from "uid";
 import ColorForm from "./Components/ColorForm/ColorForm";
+import useLocalStorageState from "use-local-storage-state";
 
 function App() {
-  const [colors, setColors] = useState(initialColors);
+  const [colors, setColors] = useLocalStorageState("colors", {
+    defaultValue: initialColors,
+  });
   const [deleteColorID, setDeleteColorID] = useState(null);
   const [editColorID, setEditColorId] = useState(null);
 
