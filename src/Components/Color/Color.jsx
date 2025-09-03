@@ -1,5 +1,6 @@
 import ColorForm from "../ColorForm/ColorForm";
-import "./Color.css"
+import "./Color.css";
+import ColorCopy from "../CopyToClipboard/ColorCopy";
 export default function Color({
   color,
   deleteColorID,
@@ -24,6 +25,7 @@ export default function Color({
       }}
     >
       <h3 className="color-card-headline">{color.hex}</h3>
+      <ColorCopy hex={color.hex}/>
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
 

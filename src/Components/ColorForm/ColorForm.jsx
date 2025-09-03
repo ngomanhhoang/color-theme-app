@@ -66,7 +66,9 @@ export default function ColorForm({
           </button>
         </>
       ) : (
-        <button className="add-color" type="submit">ADD COLOR</button>
+        <button className="add-color" type="submit">
+          ADD COLOR
+        </button>
       )}
     </form>
   );
