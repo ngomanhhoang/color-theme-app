@@ -4,6 +4,7 @@ import "./App.css";
 import { useState } from "react";
 import { uid } from "uid";
 import ColorForm from "./Components/ColorForm/ColorForm";
+
 import useLocalStorageState from "use-local-storage-state";
 
 function App() {
@@ -35,22 +36,26 @@ function App() {
     <>
       <h1>Theme Creator</h1>
       <ColorForm onAddColor={addColor} />
-      {colors.map((color) => {
-        return (
-          <Color
-            key={color.id}
-            color={color}
-            deleteColorID={deleteColorID}
-            onAskDelete={() => setDeleteColorID(color.id)}
-            onCancelDelete={() => setDeleteColorID(null)}
-            onConfirmDelete={() => confirmDelete(color.id)}
-            onAskEdit={() => setEditColorId(color.id)}
-            onUpdate={updateColor}
-            onCancelEdit={() => setEditColorId(null)}
-            editColorID={editColorID}
-          />
-        );
-      })}
+      {colors.length === 0 ? (
+        <p>No colors.. start by adding one!</p>
+      ) : (
+        colors.map((color) => {
+          return (
+            <Color
+              key={color.id}
+              color={color}
+              deleteColorID={deleteColorID}
+              onAskDelete={() => setDeleteColorID(color.id)}
+              onCancelDelete={() => setDeleteColorID(null)}
+              onConfirmDelete={() => confirmDelete(color.id)}
+              onAskEdit={() => setEditColorId(color.id)}
+              onUpdate={updateColor}
+              onCancelEdit={() => setEditColorId(null)}
+              editColorID={editColorID}
+            />
+          );
+        })
+      )}
     </>
   );
 }
