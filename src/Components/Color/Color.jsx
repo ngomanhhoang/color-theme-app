@@ -1,6 +1,7 @@
 import ColorForm from "../ColorForm/ColorForm";
 import "./Color.css";
 import ColorCopy from "../CopyToClipboard/ColorCopy";
+import ColorChecker from "../ContrastChecker/ColorCheck";
 export default function Color({
   color,
   deleteColorID,
@@ -28,7 +29,7 @@ export default function Color({
       <ColorCopy hex={color.hex}/>
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
-
+      <ColorChecker hex={color.hex} contrastText={color.contrastText}/>
       {isDeleted ? (
         <>
           <p className="color-card-headline">Really delete?</p>
