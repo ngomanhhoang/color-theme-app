@@ -8,11 +8,20 @@ import ColorForm from "./Components/ColorForm/ColorForm";
 function App() {
   const [colors, setColors] = useState(initialColors);
   const [deleteColorID, setDeleteColorID] = useState(null);
+  const [editColorID, setEditColorId] = useState(null);
 
+  function updateColor(id, updatedColor) {
+    setColors(
+      colors.map((color) =>
+        color.id === id ? { ...color, ...updatedColor } : color
+      )
+    );
+    setEditColorId(null);
+  }
 
   function confirmDelete(id) {
     setColors(colors.filter((color) => color.id !== id));
-    setDeleteColorID(null) 
+    setDeleteColorID(null);
   }
 
   function addColor(newColor) {
@@ -32,6 +41,10 @@ function App() {
             onAskDelete={() => setDeleteColorID(color.id)}
             onCancelDelete={() => setDeleteColorID(null)}
             onConfirmDelete={() => confirmDelete(color.id)}
+            onAskEdit={() => setEditColorId(color.id)}
+            onUpdate={updateColor}
+            onCancelEdit={() => setEditColorId(null)}
+            editColorID={editColorID}
           />
         );
       })}

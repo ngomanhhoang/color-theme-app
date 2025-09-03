@@ -1,3 +1,4 @@
+import "./ColorInput.css"
 export default function ColorInput({ label, name, value, onChange }) {
   return (
     <div>
