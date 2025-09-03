@@ -1,0 +1,11 @@
+label {
+    display: block;
+    margin: 4px 10px; 
+}
+
+input {
+    margin: 5px 5px 5px 10px;
+}
+.add-color {
+    margin: 5px 10px;
+}

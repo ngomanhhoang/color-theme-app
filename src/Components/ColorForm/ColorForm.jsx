@@ -2,20 +2,23 @@ import "./ColorForm.css";
 import ColorInput from "../ColorInput/ColorInput";
 import { useState } from "react";
 
-export default function ColorForm({ onAddColor }) {
-  const [formData, setFormData] = useState({
-    role: "",
-    hex: "#000000",
-    contrastText: "#ffffff",
-  });
+export default function ColorForm({
+  onAddColor,
+  mode = "add",
+  onUpdate,
+  onCancelEdit,
+  initialData,
+}) {
+  const [formData, setFormData] = useState(
+    initialData || {
+      role: "",
+      hex: "#000000",
+      contrastText: "#ffffff",
+    }
+  );
 
   function handleChange(e) {
     const { name, value } = e.target;
-    console.log(e.target);
-    console.log(e.target.name);
-    console.log(e.target.value);
-    
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -24,15 +27,12 @@ export default function ColorForm({ onAddColor }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
     console.log(formData);
-
-    onAddColor(formData);
-    setFormData({
-      role: "",
-      hex: "#000000",
-      contrastText: "#ffffff",
-    });
+    if (mode === "edit") {
+      onUpdate(formData);
+    } else {
+      onAddColor(formData);
+    }
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -58,7 +58,16 @@ export default function ColorForm({ onAddColor }) {
         value={formData.contrastText}
         onChange={handleChange}
       />
-      <button type="submit">ADD COLOR</button>
+      {mode === "edit" ? (
+        <>
+          <button type="submit">UPDATE COLOR</button>
+          <button onClick={onCancelEdit} type="button">
+            CANCEL
+          </button>
+        </>
+      ) : (
+        <button className="add-color" type="submit">ADD COLOR</button>
+      )}
     </form>
   );
 }
