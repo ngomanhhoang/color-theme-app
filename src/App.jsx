@@ -1,4 +1,5 @@
 import { initialColors } from "./lib/colors";
+import { initialThemes } from "./lib/themes";
 import Color from "./Components/Color/Color";
 import "./App.css";
 import { useState } from "react";
@@ -11,8 +12,11 @@ function App() {
   const [colors, setColors] = useLocalStorageState("colors", {
     defaultValue: initialColors,
   });
-  const [deleteColorID, setDeleteColorID] = useState(null);
   const [editColorID, setEditColorId] = useState(null);
+  const [themes, setThemes] = useLocalStorageState("themes", {
+    defaultValue: initialThemes,
+  });
+  console.log(themes);
 
   function updateColor(id, updatedColor) {
     setColors(
@@ -25,7 +29,6 @@ function App() {
 
   function confirmDelete(id) {
     setColors(colors.filter((color) => color.id !== id));
-    setDeleteColorID(null);
   }
 
   function addColor(newColor) {
@@ -35,6 +38,16 @@ function App() {
   return (
     <>
       <h1>Theme Creator</h1>
+      <select>
+        {themes.map((theme) => {
+          return (
+            <option key={theme.id} value={theme.id}>
+              {theme.name}
+            </option>
+          );
+        })}
+      </select>
+
       <ColorForm onAddColor={addColor} />
       {colors.length === 0 ? (
         <p>No colors.. start by adding one!</p>
@@ -44,9 +57,6 @@ function App() {
             <Color
               key={color.id}
               color={color}
-              deleteColorID={deleteColorID}
-              onAskDelete={() => setDeleteColorID(color.id)}
-              onCancelDelete={() => setDeleteColorID(null)}
               onConfirmDelete={() => confirmDelete(color.id)}
               onAskEdit={() => setEditColorId(color.id)}
               onUpdate={updateColor}
