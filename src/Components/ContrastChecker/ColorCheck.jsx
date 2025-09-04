@@ -16,7 +16,7 @@ export default function ColorChecker({ hex, contrastText }) {
         }
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setIsAccessible(data.overall);
     }
     postFetch();

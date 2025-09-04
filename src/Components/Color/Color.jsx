@@ -2,11 +2,9 @@ import ColorForm from "../ColorForm/ColorForm";
 import "./Color.css";
 import ColorCopy from "../CopyToClipboard/ColorCopy";
 import ColorChecker from "../ContrastChecker/ColorCheck";
+import { useState } from "react";
 export default function Color({
   color,
-  deleteColorID,
-  onAskDelete,
-  onCancelDelete,
   onConfirmDelete,
   onAskEdit,
   onUpdate,
@@ -14,8 +12,7 @@ export default function Color({
   editColorID,
 }) {
   // console.log("Find Issues 1");
-
-  const isDeleted = deleteColorID === color.id;
+  const [isDeleting, setIsDeleting] = useState(false);
   const isUpdated = editColorID === color.id;
   return (
     <div
@@ -26,23 +23,18 @@ export default function Color({
       }}
     >
       <h3 className="color-card-headline">{color.hex}</h3>
-      <ColorCopy hex={color.hex}/>
+      <ColorCopy hex={color.hex} />
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
-      <ColorChecker hex={color.hex} contrastText={color.contrastText}/>
-      {isDeleted ? (
+      <ColorChecker hex={color.hex} contrastText={color.contrastText} />
+
+      {isDeleting ? (
         <>
           <p className="color-card-headline">Really delete?</p>
-          <button onClick={onCancelDelete}>Cancel</button>
+          <button onClick={() => setIsDeleting(false)}>Cancel</button>
           <button onClick={onConfirmDelete}>Delete</button>
         </>
-      ) : (
-        <button type="button" onClick={onAskDelete}>
-          DELETE
-        </button>
-      )}
-
-      {isUpdated ? (
+      ) : isUpdated ? (
         <>
           <ColorForm
             mode="edit"
@@ -52,9 +44,14 @@ export default function Color({
           />
         </>
       ) : (
-        <button type="button" onClick={onAskEdit}>
-          EDIT
-        </button>
+        <>
+          <button type="button" onClick={() => setIsDeleting(true)}>
+            DELETE
+          </button>
+          <button type="button" onClick={onAskEdit}>
+            EDIT
+          </button>
+        </>
       )}
     </div>
   );
